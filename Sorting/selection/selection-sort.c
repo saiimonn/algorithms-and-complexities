@@ -5,7 +5,21 @@ void selectionSortDesc(int[], int);
 void read(int[], int);
 
 int main() {
-    
+    int arr[] = {29, 18, 42, 10, 48};
+    int len = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    read(arr, len);
+
+    selectionSortAsc(arr, len);
+    printf("Sorted Ascending: ");
+    read(arr, len);
+
+    selectionSortDesc(arr, len);
+    printf("Sorted Descending: ");
+    read(arr, len);
+
+    return 0;
 }
 
 void selectionSortAsc(int arr[], int size) {
