@@ -1,4 +1,6 @@
 *
 !*/
 !*.c
+!*.jpg
+!*.md
 !.gitignore
