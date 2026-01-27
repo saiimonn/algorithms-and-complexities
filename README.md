@@ -1,3 +1,3 @@
 <div align = "center">
-    <img src = "./zzzz/me.jpg" />
+    <img src = "./zzzzz/me.jpg" />
 </div>
