@@ -1,9 +1,8 @@
 #include <stdio.h>
+#include "../../headers/arr.h"
 
 int partition(int [], int, int);
-void swap(int *, int *);
 void quickSort(int [], int, int);
-void read(int [], int);
 
 int main() {
     int data[] = {8, 7, 2, 1, 0, 9, 6};
@@ -11,18 +10,12 @@ int main() {
     int len = sizeof(data) / sizeof(data[0]);
 
     printf("Unsorted: ");
-    read(data, len);
+    printArr(data, len);
 
     quickSort(data, 0, len - 1);
 
     printf("Sorted Asc: ");
-    read(data, len);
-}
-
-void swap(int *a, int *b) {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+    printArr(data, len);
 }
 
 int partition(int arr[], int low, int high) {

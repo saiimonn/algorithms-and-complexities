@@ -1,14 +1,14 @@
 #include <stdio.h>
+#include "../../headers/arr.h"
 
 void insertionSort(int [], int);
-void read(int [], int);
 
 int main() {
     int arr[] = {31, 34, 42, 10, 42, 18};
     int size = sizeof(arr) / sizeof(int);
 
     insertionSort(arr, size);
-    read(arr, size);
+    printArr(arr, size);
 }
 
 void insertionSort(int arr[], int n) {
@@ -21,11 +21,5 @@ void insertionSort(int arr[], int n) {
             --j;
         }
         arr[j + 1] = key;
-    }
-}
-
-void read(int arr[], int n) {
-    for(int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
     }
 }
