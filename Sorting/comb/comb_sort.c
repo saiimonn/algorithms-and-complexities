@@ -1,23 +1,21 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "../../headers/arr.h"
 
-int getNextGap(int gap) {
-    gap = (gap * 10) / 13;
-    return (gap < 1) ? 1 : gap;
-}
-
-void combSort(int a[], int n) {
-    int gap = n;
-    bool swapped = true;
-    while (gap != 1 || swapped) {
-        gap = getNextGap(gap);
-        swapped = false;
-        for (int i = 0; i < n - gap; i++) {
-            if (a[i] > a[i + gap]) {
-                int temp = a[i];
-                a[i] = a[i + gap];
-                a[i + gap] = temp;
-                swapped = true;
+void combSort(int arr[], int size) {
+    bool sorted = false;
+    
+    for(int gap = size / 1.3; gap >= 1 || !sorted; gap /= 1.3) {
+        if (gap < 1) {
+            gap = 1;
+        }
+        
+        sorted = true;
+        
+        for(int i = gap; i < size; i++) {
+            if(arr[i - gap] > arr[i]) {
+                swap(&arr[i], &arr[i - gap]);
+                sorted = false;
             }
         }
     }
