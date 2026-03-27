@@ -1,4 +1,4 @@
-# Bubble Sort Complexity
+# Gnome Sort Complexity
 
 **Time & Space Complexity**
 
