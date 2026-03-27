@@ -3,19 +3,17 @@
 #include "../../headers/arr.h"
 
 void combSort(int arr[], int size) {
-    bool sorted = false;
-    
-    for(int gap = size / 1.3; gap >= 1 || !sorted; gap /= 1.3) {
-        if (gap < 1) {
-            gap = 1;
-        }
-        
-        sorted = true;
-        
+    bool isSorted = false;
+
+    for(int gap = size / 1.3; gap > 0 || !isSorted; gap /= 1.3) {
+        if(gap < 1) gap = 1;
+
+        isSorted = true;
+
         for(int i = gap; i < size; i++) {
             if(arr[i - gap] > arr[i]) {
-                swap(&arr[i], &arr[i - gap]);
-                sorted = false;
+                swap(&arr[i - gap], &arr[i]);
+                isSorted = false;
             }
         }
     }

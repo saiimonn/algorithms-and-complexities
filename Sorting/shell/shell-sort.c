@@ -18,15 +18,16 @@ int main() {
 }
 
 void shellSort(int arr[], int size) {
-    for(int gap = size / 2; gap < 0; gap /= 2) {
+    for(int gap = size / 2; gap > 0; gap /= 2) {
         for(int i = 0; i < size; i++) {
-            int temp = arr[i], j;
-            
-            for(j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+            int temp = arr[i];
+            int j;
+
+            for(j = i; j >= gap && arr[j - gap] > temp; j -= 1) {
                 arr[j] = arr[j - gap];
             }
-            
-            if (j != i) {
+
+            if(i != j) {
                 arr[j] = temp;
             }
         }

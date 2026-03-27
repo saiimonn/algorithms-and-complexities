@@ -23,13 +23,13 @@ int main() {
 }
 
 void selectionSortAsc(int arr[], int size) {
-    for(int i = 0; i < size - 1; i++){ 
+    for(int i = 0; i < size - 1; i++) {
         int min = i;
-        
-        for (int j = i + 1; j < size; j++){ 
+
+        for(int j = i + 1; j < size; j++) {
             if(arr[j] < arr[min]) min = j;
         }
-        
+
         swap(&arr[i], &arr[min]);
     }
 }
@@ -37,11 +37,11 @@ void selectionSortAsc(int arr[], int size) {
 void selectionSortDesc(int arr[], int size) {
     for(int i = 0; i < size - 1; i++) {
         int max = i;
-        
+
         for(int j = i + 1; j < size; j++) {
             if(arr[j] > arr[max]) max = j;
         }
-        
+
         swap(&arr[i], &arr[max]);
     }
 }

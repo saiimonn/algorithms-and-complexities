@@ -4,7 +4,7 @@
 void gnomeSort(int [], int);
 
 int main() {
-    int arr[] = {29, 18, 42, 10, 48};
+    int arr[] = {34, 2, 10, -9};
     int size = sizeof(arr) / sizeof(arr[0]);
     
     gnomeSort(arr, size);
@@ -14,9 +14,6 @@ int main() {
     }
     printf("\n");
 }
-
-// trav = 1
-// 10, 18, 29, 42, 48
 
 void gnomeSort(int arr[], int size) {
     int trav = 0;
