@@ -5,7 +5,7 @@ void bubbleSortAsc(int [], int);
 void bubbleSortDesc(int [], int);
 
 int main() {
-    int arr[] = {29, 18, 42, 10, 48};
+    int arr[] = {29, 18, 42, 10, 48}; 
     
     int len = sizeof(arr) / sizeof(arr[0]);
     printf("Original array: ");
