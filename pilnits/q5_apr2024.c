@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int division(int a, int b) {
-    int u;
+    int u; 
     u = a / b;
     return u;
 }
