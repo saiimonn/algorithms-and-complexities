@@ -14,7 +14,7 @@ void reverse_dig(int num) {
     while(temp > 0) {
         rm = temp % 10;
         rev = rev * 10 + rm;
-        temp /= 10;
+        temp /= 10; 
     }
     printf("%d", rev);
 }
