@@ -158,5 +158,63 @@ void transplant(RBT *root, RBT toBeDeleted, RBT replacement) {
 }
 
 void delete(RBT *root, int data) {
-    RBT *trav = root
+    RBT *trav = root;
+    RBT nodeToBeDeleted = NULL;
+    RBT replacement = NULL;
+
+    while (*trav != NULL && (*trav)->data != data) {
+        if (data < (*trav)->data) {
+            trav = &(*trav)->left;
+        } else {
+            trav = &(*trav)->right;
+        }
+    }
+
+     if (*trav == NULL) return;
+
+     nodeToBeDeleted = *trav;
+     int originalColor = nodeToBeDeleted->color;
+
+     if (nodeToBeDeleted->left == NULL) {
+         replacement = nodeToBeDeleted->left;
+         transplant(root, nodeToBeDeleted, replacement);
+     } else {
+         RBT temp;
+         replacement = nodeToBeDeleted->right;
+
+         while (replacement->left != NULL) {
+             replacement = replacement->left;
+         }
+
+         originalColor = replacement->color;
+         temp = replacement->right;
+
+         transplant(root, replacement, replacement->right);
+
+         replacement->right = nodeToBeDeleted->right;
+         replacement->left->parent = replacement;
+
+         transplant(root, nodeToBeDeleted, replacement);
+         replacement->left = nodeToBeDeleted->left;
+         replacement->left->parent = replacement;
+         replacement->color = nodeToBeDeleted->color;
+
+         replacement = temp;
+     }
+
+     if (originalColor == BLACK && replacement != NULL) {
+         deleteFixup(root, replacement);
+     } else if (originalCOlor == BLACK) {
+         deleteFixup(root, nodeToBeDeleted);
+     }
+
+     free(nodeToBeDeleted);
+}
+
+void deleteFixup(RBT *root, RBT node) {
+    if (*root == NULL || node == NULL) return;
+
+    while (node != *root && node->color == BLACK) {
+        bool nodeisLeft = (node == node->parent->left || (node->parent->right != node && node->parent))
+    }
 }
