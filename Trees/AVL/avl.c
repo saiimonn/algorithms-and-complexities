@@ -94,25 +94,32 @@ void rotateRight(AVL *x) {
     temp->right = *x;
 
     (*x)->height = getNewHeight(*x);
+    temp->height = getNewHeight(temp);
+
+    *x = temp;
 }
 
 void balance(AVL *root) {
     if (*root != NULL) {
         int balanceFactor = getBalanceFactor(*root);
 
+        //case 1: LL imbalance
         if (balanceFactor > 1 && getBalanceFactor((*root)->left) > 0) {
             rotateRight(root);
         }
 
+        //case 2: LR imbalance
         else if (balanceFactor > 1) {
             rotateLeft(&(*root)->left);
             rotateRight(root);
         }
 
+        //case 3: RR imbalance
         else if (balanceFactor < -1 && getBalanceFactor((*root)->right) < 0) {
             rotateLeft(root);
         }
 
+        //case 4: RL imbalance
         else if (balanceFactor < -1) {
             rotateRight(&(*root)->right);
             rotateLeft(root);
@@ -122,12 +129,12 @@ void balance(AVL *root) {
 
 void insert(AVL *root, int data) {
     if (*root == NULL) {
-        AVL temp = (AVL)malloc(sizeof(struct node));
+        AVL newNode = (AVL)malloc(sizeof(struct node));
 
-        if (temp != NULL) {
-            temp->data = data;
-            temp->left = temp->right = NULL;
-            *root = temp;
+        if (newNode != NULL) {
+            newNode->data = data;
+            newNode->left = newNode->right = NULL;
+            *root = newNode;
         }
     }
 
