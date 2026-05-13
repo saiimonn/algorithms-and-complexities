@@ -1,38 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#define max(a, b) ((a > b) ? a : b)
 
 typedef struct node {
     int data;
-    struct node *left;
-    struct node *right;
-    int height;
+    struct node* left;
+    struct node* right;
+    int height; // Height of the node for AVL balancing
 } *AVL;
 
-int max(int, int);
-int getHeight(AVL);
-int getNewHeight(AVL);
-int getBalanceFactor(AVL);
 
-void rotateLeft(AVL *);
-void rotateLeft(AVL *);
+int getHeight(AVL x);
+int getNewHeight(AVL x);
+int getBalanceFactor(AVL x);
 
-void balance(AVL *);
+void rotateLeft(AVL *x);
+void rotateRight(AVL *x);
 
-void insert(AVL *, int);
-void delete(AVL *, int);
-bool search(AVL, int);
-void preorder(AVL);
+void balance(AVL *root);
+
+void insert(AVL* root, int data);
+void delete(AVL* root, int data);
+bool search(AVL root, int data);
+void preorder(AVL root);
 
 int main() {
     AVL root = NULL;
-    insert(&root, 50);
-    insert(&root, 30);
     insert(&root, 20);
+    insert(&root, 50);
+    insert(&root, 10);
     insert(&root, 40);
-    insert(&root, 70);
-    insert(&root, 60);
     insert(&root, 80);
+    insert(&root, 60);
 
     printf("Preorder traversal: ");
     preorder(root);
@@ -59,16 +59,12 @@ int main() {
     return 0;
 }
 
-int max(int a, int b) {
-    return (a > b) ? a : b;
-}
-
 int getHeight(AVL x) {
     return x == NULL ? 0 : x->height;
 }
 
 int getNewHeight(AVL x) {
-    return max(getHeight(x->left), getHeight(x->right));
+    return max(getHeight(x->left), getHeight(x->right)) + 1;
 }
 
 int getBalanceFactor(AVL x) {
@@ -103,23 +99,20 @@ void balance(AVL *root) {
     if (*root != NULL) {
         int balanceFactor = getBalanceFactor(*root);
 
-        //case 1: LL imbalance
+        // Case 1: Left-Left
         if (balanceFactor > 1 && getBalanceFactor((*root)->left) > 0) {
             rotateRight(root);
         }
-
-        //case 2: LR imbalance
+        // Case 2: Left-Right
         else if (balanceFactor > 1) {
             rotateLeft(&(*root)->left);
             rotateRight(root);
         }
-
-        //case 3: RR imbalance
+        // Case 3: Right - Right
         else if (balanceFactor < -1 && getBalanceFactor((*root)->right) < 0) {
             rotateLeft(root);
         }
-
-        //case 4: RL imbalance
+        // Case 4: Right - Left
         else if (balanceFactor < -1) {
             rotateRight(&(*root)->right);
             rotateLeft(root);
@@ -127,21 +120,19 @@ void balance(AVL *root) {
     }
 }
 
-void insert(AVL *root, int data) {
+void insert(AVL* root, int data) {
     if (*root == NULL) {
-        AVL newNode = (AVL)malloc(sizeof(struct node));
+        AVL temp = (AVL)malloc(sizeof(struct node));
 
-        if (newNode != NULL) {
-            newNode->data = data;
-            newNode->left = newNode->right = NULL;
-            *root = newNode;
+        if (temp != NULL) {
+            temp->data = data;
+            temp->left = temp->right = NULL;
+            *root = temp;
         }
     }
-
     else if (data < (*root)->data) {
         insert(&(*root)->left, data);
     }
-
     else if (data > (*root)->data) {
         insert(&(*root)->right, data);
     }
@@ -151,7 +142,7 @@ void insert(AVL *root, int data) {
     balance(root);
 }
 
-void delete(AVL *root, int data) {
+void delete(AVL* root, int data) {
     if (*root == NULL) {
         return;
     }
@@ -161,16 +152,18 @@ void delete(AVL *root, int data) {
     } else if (data > (*root)->data) {
         delete(&(*root)->right, data);
     } else {
+        // Node with only one child or no child
         if ((*root)->right == NULL) {
             AVL temp = *root;
             *root = (*root)->left;
             free(temp);
         } else {
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
             AVL temp = (*root)->right;
             while (temp && temp->left != NULL) {
                 temp = temp->left;
             }
-            (*root)->data = temp->data;
+            (*root)->data = temp->data; // Copy the inorder successor's content to this node
             delete(&(*root)->right, temp->data);
         }
     }
@@ -199,5 +192,8 @@ void preorder(AVL root) {
         printf("%d ", root->data);
         preorder(root->left);
         preorder(root->right);
+    }
+    else {
+        printf("_ ");
     }
 }
