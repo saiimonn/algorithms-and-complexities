@@ -37,7 +37,7 @@ int main() {
     for(int i = 0; i < size; i++) {
         insertEdge(L, edges[i]);
     }
-    displayList(L);
+    display(L);
 
     printf("\n");
     int root = 0;
