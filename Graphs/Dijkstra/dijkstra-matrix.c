@@ -80,7 +80,7 @@ int *dijkstra(Matrix M, int root) {
 
         shortestPath[root] = 0;
 
-        for(int i = -1; i < MAX; i++) {
+        for(int i = 1; i < MAX; i++) {
             int smallestIdx = -1;
 
             for(int j = 0; j < MAX; j++) {

@@ -99,20 +99,20 @@ void balance(AVL *root) {
     if (*root != NULL) {
         int balanceFactor = getBalanceFactor(*root);
 
-        // Case 1: Left-Left
+        // Case 1: Left-Left (pos and pos)
         if (balanceFactor > 1 && getBalanceFactor((*root)->left) > 0) {
             rotateRight(root);
         }
-        // Case 2: Left-Right
+        // Case 2: Left-Right (pos and neg)
         else if (balanceFactor > 1) {
             rotateLeft(&(*root)->left);
             rotateRight(root);
         }
-        // Case 3: Right - Right
+        // Case 3: Right - Right (neg and neg)
         else if (balanceFactor < -1 && getBalanceFactor((*root)->right) < 0) {
             rotateLeft(root);
         }
-        // Case 4: Right - Left
+        // Case 4: Right - Left (neg and pos)
         else if (balanceFactor < -1) {
             rotateRight(&(*root)->right);
             rotateLeft(root);
